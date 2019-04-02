@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
 
   def edit
 
-    end
+  
   end
 
   def new
@@ -38,7 +38,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    
+
     @group.destroy
     flash[:alert] = "Group deleted"
     redirect_to groups_path
@@ -48,10 +48,11 @@ class GroupsController < ApplicationController
 
   def find_group_and_check_permission
     @group = Group.find(params[:id])
-    fi current_user != @group.user
+    if current_user != @group.user
     redirect_to root_path, alert: "You have no permission."
   end
 end
+
 
   def group_params
     params.require(:group).permit(:title, :description)
